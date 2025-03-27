@@ -1,5 +1,11 @@
 USE hospital_db;
 
+-- Clear data in correct order (child tables first)
+DELETE FROM medical_records;
+DELETE FROM appointments;
+DELETE FROM doctors;
+DELETE FROM patients;
+
 -- Insert patients
 INSERT INTO patients (name, dob, gender, phone) VALUES
 ('Alice Chen', '1990-05-15', 'Female', '555-1234'),
@@ -9,23 +15,17 @@ INSERT INTO patients (name, dob, gender, phone) VALUES
 -- Insert doctors
 INSERT INTO doctors (name, specialization, email) VALUES
 ('Dr. David Kim', 'Cardiology', 'david.kim@hospital.com'),
-('Dr. Maria Garcia', 'Neurology', 'maria.garcia@hospital.com');
+('Dr. Maria Garcia', 'Neurology', 'maria.garcia@hospital.com'),
+('Dr. James Wilson', 'Oncology', 'james.wilson@hospital.com');
 
 -- Insert appointments
-INSERT INTO appointments (patient_id, doctor_id, date, status) VALUES
-(1, 1, '2023-06-10 09:00:00', 'Completed'),
-(2, 2, '2023-06-15 14:30:00', 'Scheduled');
+INSERT INTO appointments (patient_id, doctor_id, status, notes) VALUES
+(1, 1, 'Completed', 'Regular checkup - BP normal'),
+(2, 2, 'Scheduled', 'Neurological evaluation'),
+(3, 3, 'Scheduled', 'Cancer screening consultation');
 
 -- Insert medical records
-INSERT INTO medical_records (patient_id, diagnosis) VALUES
-(1, 'Hypertension - prescribed Lisinopril'),
-(2, 'Migraine - advised rest and hydration');  
-
-INSERT INTO doctors VALUES 
-(3, 'Dr. James Wilson', 'Oncology', 'james.wilson@hospital.com');
-
-INSERT INTO appointments VALUES
-(3, 1, '2023-06-20 10:00:00', 'Scheduled');
-
-INSERT INTO medical_records VALUES
-(3, 3, 'Annual physical - healthy');
+INSERT INTO medical_records (patient_id, diagnosis, treatment, prescription) VALUES
+(1, 'Hypertension', 'Lifestyle changes', 'Lisinopril 10mg daily'),
+(2, 'Migraine', 'Stress management', 'Ibuprofen PRN'),
+(3, 'Annual physical', 'Preventive care', 'None');
